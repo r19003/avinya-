@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>blog</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+</head>
+
+<style>
+    body{
+        padding: 0%;
+        margin: 0;
+    }
+    .nav{
+        background-color: #f8f9fa;
+    }
+
+</style>
+<body>
+    <header>
+<div id="Lname">
+    <h1 style="text-align: center; margin-top:2%;">YOUR STORY</h1>
+</div>
+<nav class="navbar navbar-expand-lg bg-body-tertiary" style="text-align: center ;">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#" style="">News</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="#">Trending</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Sports</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Fashion</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#">Buisness</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    </header>
+    
+    <section>
+        <div class="news" style="margin-top:1%; padding:2% ; text-align:center" >
+     <h1 style=" font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif; font-size: 35px; font-weight: 600;">Donald Trump mocks Harris with McDonald's visit ,<br> she calls it sign of desperation</h1>
+     <h4 style="color: grey; font-size:18px">The Republican Presidential candidate Trump hands out french fries in Pennsylvania, <br>Harris visits Georgia churches in swing-state appeals</h4>
+        </div>
+        <div class="newimg" style=" padding: 1%; margin-left: 20%;">
+            <img src="https://www.tribuneindia.com/sortd-service/imaginary/v22-01/jpg/large/high?url=dGhldHJpYnVuZS1zb3J0ZC1wcm8tcHJvZC1zb3J0ZC9tZWRpYTU5NjJlNzgwLThmN2UtMTFlZi04YTBkLWIzMzdmNjgxZjg3My5qcGc=">
+        </div>
+
+        <div id="content" style="padding: 2%; margin-left:10%;justify-content:justify; color:black; font-size:20px ; align-items:center ">
+            <p>With the United States presidential election little more than two weeks away, Democrat Kamala Harris visited two churches on Sunday while<br> her Republican rival, Donald Trump, visited another kind of American temple: a McDonald's.</p>
+        <p>Both candidates were scrambling for votes in the most competitive states, with Harris, the U.S. vice president, appealing to early voters in <br>Georgia and Trump campaigning in Pennsylvania ahead of the Nov. 5 election.</p>
+        
+        <p>At a McDonald's in suburban Philadelphia, Trump removed his suit jacket, put on a black and yellow apron and proceeded to cook batches<br> of french fries, something he said he had wanted to do "all my life."</p>
+        </div>
+        
+    </section>
+    <hr>
+<section>
+  <div style="padding: 2%;">
+    <h1 align="center" style="margin-top: 10%; ">
+      Comment section
+  </h1>
+  <div align="center" style="margin-top: 3%;margin-bottom:3%">
+  <input type="text" id="c"placeholder="Add comment..." required>
+  <button id="add">ADD </button>
+  </div>
+  <ul id="comment">
+  </div>
+  </section>
+  <script>
+        
+    const list=document.getElementById('comment');
+    const input=document.getElementById('c');
+    const addButton=document.getElementById('add');
+    const name1='raghav';
+    let commentd = JSON.parse(localStorage.getItem('commentd')) || [];
+    addButton.addEventListener('click',()=>{
+        let text=input.value ;
+        if (text.trim === "" ) {
+            alert("Please enter a valid comment.");
+            return;
+        }
+        else{
+        let commentdata = {
+            id: Date.now(), 
+            text,
+            name1, 
+        };
+        console.log(commentdata.text);
+        commentd.push(commentdata);
+        localStorage.setItem('commentd',JSON.stringify(commentd));
+    updateCommentList();}
+    })
+    
+    function updateCommentList(){
+        list.innerHTML='';
+        commentd.forEach(commentdata => {
+            let li = document.createElement('li');
+            li.innerHTML = `
+                ${commentdata.name1} -  ${commentdata.text} -${commentdata.id}
+                <button class="deleteBtn" data-id="${commentdata.id}">Delete</button>
+            `;
+            list.appendChild(li);
+    
+            // Add delete event listener to each button
+            li.querySelector('.deleteBtn').addEventListener('click', () => {
+                deletecommentdata(commentdata.id);
+            });
+        });
+    }
+    function deletecommentdata(id) {
+        commentd = commentd.filter(commentdata => commentdata.id !== id);
+        updateCommentList(); // Update the list after deletion
+        localStorage.setItem('commentd', JSON.stringify(commentd)); // Update localStorage
+    }
+    
+        </script>
+    
+</body>
+</html>
